@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-[#0a0a0a] font-sans; }
+}
+
+/* Custom utilities for glass and effects */
+:root{
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.06);
+  --accent-cyan: #00f0ff;
+  --accent-warm: rgba(255,150,120,0.09);
+}
+
+/* Glassmorphism */
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* Noise texture small subtle */
+.noise::after{
+  content: '';
+  pointer-events: none;
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 4px 4px;
+  mix-blend-mode: overlay;
+}
+
+/* Spotlight using CSS variables set by JS: --mx, --my */
+.card-spotlight{
+  --size: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.card-spotlight::before{
+  content:'';
+  position:absolute; left: calc(var(--mx, 50%) - var(--size)/2); top: calc(var(--my, 50%) - var(--size)/2);
+  width: var(--size); height: var(--size);
+  background: radial-gradient(circle at center, rgba(0,240,255,0.09), rgba(98,0,238,0.03) 40%, transparent 60%);
+  transform: translate3d(0,0,0);
+  transition: width .12s linear, height .12s linear;
+  pointer-events: none;
+}
+
+/* In-view animation */
+.fade-up{
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(.22,.9,.3,1), opacity 500ms ease;
+}
+.fade-up.in-view{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Custom cursor */
+.cursor-glow{
+  position: fixed; left: 0; top: 0; width: 28px; height: 28px; border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none; z-index: 9999; mix-blend-mode: screen;
+  transition: background-color .18s linear, transform .08s linear;
+  box-shadow: 0 8px 24px rgba(0,240,255,0.08), 0 0 40px rgba(98,0,238,0.06);
+}
+.cursor-glow.small{ width: 14px; height: 14px; }
+
+/* Smooth-scroll for anchor links */
+html { scroll-behavior: smooth; }
+
+/* Ambient orb animations */
+@keyframes floatSlow {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-24px) translateX(12px) scale(1.05); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
+}
+.orb {
+  position: absolute; border-radius: 999px; filter: blur(36px); opacity: 0.6; mix-blend-mode: screen;
+}
