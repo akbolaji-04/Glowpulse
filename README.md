@@ -8,7 +8,7 @@
 
 > **Tune Into Your Rhythm.** > A minimal, glassmorphic wellness dashboard designed for the cyber-conscious.
 
-[**🔴 Live Demo**](httpskh://glowpulse.netlify.app/)
+[**🔴 Live Demo**](https://glowpulse.netlify.app/)
 
 ---
 
